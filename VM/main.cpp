@@ -2,6 +2,7 @@
 
 #include "CComliler.h"
 int main() {
-    IntToBinary(23);
+    std::cout<<IntToBinary(1024);
+
     return 0;
 }

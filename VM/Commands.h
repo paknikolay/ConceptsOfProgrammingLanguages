@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <string>
+#include <bitset>
+#include <sstream>
+
 enum class CMD {
     PUSH = 10,
     POP = 20
@@ -17,7 +20,8 @@ std::string ToString( CMD cmd )
     }
 }
 
-CMD FromChar( char cmd ) {
+CMD FromChar( char cmd )
+{
     switch( cmd ) {
         case 10:
             return CMD::PUSH;
@@ -38,16 +42,31 @@ char ToChar( CMD cmd )
 
 std::string IntToBinary( int n )
 {
-    std::string s = {0, 0, 0, 0};
-    int  i = 0;
-    while( n > 0 ) {
-        s[i] = (char)( n >> (4 * i) );
-        std::cout<<s[i] + 0 <<" " << n <<"\n";
-        ++i;
-        n = n >> (i * 4);
-
+    std::stringstream buffer;
+    for( int i = 0; i < 4; ++i ) {
+        buffer << ( char ) n;
+        n = ( n >> 8 );
     }
 
-    return s;
+    return buffer.str();
 
 }
+
+void skip( const char* str, int& iter )
+{
+    while ( !isalnum( str[iter] ) ){
+        ++iter;
+    }
+}
+
+int StringToInt( const char* str, int& iter )
+{
+    skip( str, iter );
+    int n = 0;
+     while( isdigit( str[iter] ) ) {
+         n += str[iter] - '0';
+         ++iter;
+     }
+}
+
+

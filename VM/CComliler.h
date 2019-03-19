@@ -8,37 +8,54 @@
 
 class CCompiler{
 public:
-    CCompiler( const char* programPath ) {
+
+    void Compile( const char* programPath, const char* destPath ) {
         std::ifstream in( programPath );
 
-        std::stringstream buffer( programPath );
+        std::stringstream buffer;
         buffer << in.rdbuf();
         const char* program = buffer.str().data();
 
-        std::vector<char> bin;
+        std::stringstream bin;
         int iter = 0;
 
         while( program[iter] != 0 ) {
-
+            skip( program, iter );
             CMD cmd;
             switch ( program[iter] ) {
                 case 'P':
                     switch ( program[++iter] ) {
                         case 'U':
                             cmd = CMD::PUSH;
-                            bin.push_back( ToChar( cmd ) );
+                            bin << ToChar( cmd );
                             iter +=  3;
+                            bin << IntToBinary( StringToInt( program, iter ) );
                             break;
                         case 'O':
                             cmd = CMD::POP;
-                            bin.push_back( ToChar( cmd ) );
+                            skip( program, iter );
+
+                            bin << ToChar( cmd );
                             //and add args
                             iter += 2;
                     }
             }
+        }
+    }
 
 
+    void Decompile( const char* programBinPath, const char* destPath ) {
+        std::ifstream in( programBinPath );
 
+        std::stringstream buffer;
+        buffer << in.rdbuf();
+        const char* programBin = buffer.str().data();
+
+        std::stringstream program;
+        int iter = 0;
+
+        while ( iter < buffer.str().size() ) {
+            buffer <<
         }
     }
 

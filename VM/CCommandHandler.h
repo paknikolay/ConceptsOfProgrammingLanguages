@@ -1,8 +1,5 @@
-//
-// Created by Гость on 2019-03-19.
-//
+#pragma once
 
-#ifndef VM_CCOMMANDHANDLER_H
-#define VM_CCOMMANDHANDLER_H
+class CCommandHandler{
 
-#endif //VM_CCOMMANDHANDLER_H
+};
