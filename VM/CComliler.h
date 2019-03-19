@@ -5,12 +5,14 @@
 #include <vector>
 
 #include "Commands.h"
+#include "CCommandHandler.h"
 
 class CCompiler{
 public:
 
     void Compile( const char* programPath, const char* destPath ) {
         std::ifstream in( programPath );
+        std::ofstream out( destPath );
 
         std::stringstream buffer;
         buffer << in.rdbuf();
@@ -41,22 +43,38 @@ public:
                     }
             }
         }
+
+        out << bin.str();
     }
 
 
     void Decompile( const char* programBinPath, const char* destPath ) {
         std::ifstream in( programBinPath );
+        std::ofstream out( destPath );
 
         std::stringstream buffer;
         buffer << in.rdbuf();
-        const char* programBin = buffer.str().data();
+        const char* bin = buffer.str().data();
 
         std::stringstream program;
         int iter = 0;
 
-        while ( iter < buffer.str().size() ) {
-            buffer <<
+        CCommandHandler handler( bin );
+
+        while( true ) {
+            CMD cmd = handler.GetNextCMD();
+            program << ToString( cmd );
+            int argsCount = GetCMDArgsCount( cmd );
+            if ( cmd == CMD::END) {
+                break;
+            }
+            for( int i = 0; i < argsCount; ++i ) {
+                program << handler.GetNextArg() << " ";
+            }
         }
+
+
+        out << program.str();
     }
 
 private:

@@ -7,7 +7,8 @@
 
 enum class CMD {
     PUSH = 10,
-    POP = 20
+    POP = 20,
+    END = 255
 };
 
 std::string ToString( CMD cmd )
@@ -27,6 +28,8 @@ CMD FromChar( char cmd )
             return CMD::PUSH;
         case 20:
             return CMD::POP;
+        case 255:
+            return CMD::END;
     }
 }
 
@@ -37,6 +40,8 @@ char ToChar( CMD cmd )
             return 10;
         case CMD::POP:
             return 20;
+        case CMD::END:
+            return 255;
     }
 }
 
@@ -69,4 +74,14 @@ int StringToInt( const char* str, int& iter )
      }
 }
 
+
+int GetCMDArgsCount( CMD cmd )
+{
+    switch( cmd ) {
+        case CMD::PUSH:
+            return 1;
+        case CMD::POP:
+            return 1;
+    }
+}
 
