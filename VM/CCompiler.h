@@ -7,7 +7,7 @@
 
 #include "Commands.h"
 #include "CCommandHandler.h"
-
+#include "CRam.h"
 class CCompiler{
 public:
 
@@ -213,7 +213,9 @@ private:
                     bin << ToChar(cmd);
                     iter += 3;
                     isEnd = true;
+                    ip += 1;
                     break;
+
                 }
                 case ':':
                     int var = StringToInt( program, iter );
@@ -235,6 +237,10 @@ private:
 
                     break;
             }
+        }
+
+        for (int j = 0; j < DEFAUL_RAM_SIZE - ip; ++j) {
+            bin << 0;
         }
 
         return bin.str();

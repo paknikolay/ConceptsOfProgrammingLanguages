@@ -7,9 +7,9 @@
 
 class CRam{
 public:
-    explicit CRam( int64_t size =  DEFAUL_RAM_SIZE)
+    explicit CRam( char* pogramImage, int64_t size = DEFAUL_RAM_SIZE )
     {
-        storage = new char[size];
+        storage = pogramImage;
     }
 
     char* GetPointer( int64_t index )
