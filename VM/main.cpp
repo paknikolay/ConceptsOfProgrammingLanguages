@@ -7,25 +7,22 @@
 #include "CVM.h"
 int main() {
     CCompiler compiler;
-    compiler.Compile("file", "out.bin");
+    compiler.Compile( "fibonacci", "fibonacci_out.bin" );
 
-    compiler.Decompile("out.bin", "out");
+    compiler.Decompile( "fibonacci_out.bin", "fibonacci_out" );
 
-    std::ifstream in("out.bin");
-    std::string content((std::istreambuf_iterator<char>(in)),
-                        (std::istreambuf_iterator<char>()));
+    std::ifstream in( "fibonacci_out.bin" );
+    std::string content( ( std::istreambuf_iterator<char>( in ) ),
+                        ( std::istreambuf_iterator<char>() ) );
 
     char *bin = new char[content.size()];
 
-    for (int i = 0; i < content.size(); ++i) {
-     //   std::cout<<(unsigned char)content[i] + 0<<" ";
+    for ( int i = 0; i < content.size(); ++i)  {
         bin[i] = content[i];
     }
-  //  std::cout<<"\n________________________\n";
-    CVM vm(bin);
-
+    CVM vm( bin );
     vm.Start();
 
 
-return 0;
+    return 0;
 }

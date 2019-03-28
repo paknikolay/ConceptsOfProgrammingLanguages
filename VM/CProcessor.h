@@ -26,53 +26,26 @@ public:
         const int* args = handler.GetCMDArgs( nextCmd );
 
         switch( nextCmd ) {
-#define DEF_CMD(name, num, argCount, code) \
+        #define DEF_CMD(name, num, argCount, code) \
         case CMD::name: \
             name( args );\
             return true;
-#include "CommandHelper.h"
+        #include "CommandHelper.h"
 
-#undef DEF_CMD
-            /*case CMD::ADD:
-                ADD( args );
-                return;
-            case CMD::SUB:
-                SUB( args );
-                return;
-            case CMD::PRINT:
-                PRINT( args );
-                return;*/
+        #undef DEF_CMD
+
         }
         return true;
     }
 
 private:
 
-#define DEF_CMD(name, num, argCount, code) \
+        #define DEF_CMD(name, num, argCount, code) \
         void name ( const int* args ) \
         code
-#include "CommandHelper.h"
+        #include "CommandHelper.h"
 
-#undef DEF_CMD
-
-    /*void ADD( const int* args )
-    {
-        int tmp = stack.Pop();
-        int tmp2 = stack.Pop();
-        stack.Push( tmp + tmp2 );
-    }
-
-    void SUB( const int* args )
-    {
-        int tmp = stack.Pop();
-        int tmp2 = stack.Pop();
-        stack.Push( tmp2 - tmp );
-    }
-
-    void PRINT( const int* args )
-    {
-        std::cout << reinterpret_cast<char*> (edx);
-    }*/
+        #undef DEF_CMD
 
 private:
     int rax;

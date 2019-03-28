@@ -12,43 +12,17 @@ enum class CMD
 #include "CommandHelper.h"
 
 #undef DEF_CMD
-/*
-   ADD = 01,
-    SUB = 02,
-    PRINT = 11,
-    PUSH = 10,
-    POP = 20,
-    END = 255,
-    LABEL = 254,
-    STR = 200,
- */
-
 };
 
 std::string ToString( CMD cmd )
 {
     switch( cmd ) {
-#define DEF_CMD(name, num, argCount, code) \
+        #define DEF_CMD(name, num, argCount, code) \
         case CMD::name: \
         return #name;
-#include "CommandHelper.h"
+        #include "CommandHelper.h"
 
-#undef DEF_CMD
-
-    /*    case CMD::ADD:
-            return "ADD";
-        case CMD::SUB:
-            return "SUB";
-        case CMD::PRINT:
-            return "PRINT";
-        case CMD::PUSH:
-            return "PUSH";
-        case CMD::POP:
-            return "POP";
-        case CMD::END:
-            return "END";
-            */
-
+        #undef DEF_CMD
     }
 }
 
@@ -67,75 +41,34 @@ bool IsSame( std::string cmd, const char* pattern )
 
 CMD FromStr( std::string cmd )
 {
-#define DEF_CMD(name, num, argCount, code) \
+        #define DEF_CMD(name, num, argCount, code) \
         if( IsSame( cmd, #name) ) \
         return CMD::name;
-#include "CommandHelper.h"
+        #include "CommandHelper.h"
 
-#undef DEF_CMD
-   /* if( IsSame( cmd, "ADD" ) ) {
-        return CMD::ADD;
-    }
-
-    if( IsSame( cmd, "SUB" ) ) {
-        return CMD::SUB;
-    }
-    if( IsSame( cmd, "PRINT" ) ) {
-        return CMD::PRINT;
-    }
-    if( IsSame( cmd, "LABEL" ) ) {
-    return CMD::LABEL;
-    }*/
+        #undef DEF_CMD
 }
 
 CMD FromChar( unsigned char cmd ) {
     switch (cmd) {
-#define DEF_CMD(name, num, argCount, code) \
+        #define DEF_CMD(name, num, argCount, code) \
         case num: \
         return CMD::name;
-#include "CommandHelper.h"
+        #include "CommandHelper.h"
 
-#undef DEF_CMD
-        /*
-        case 01:
-            return CMD::ADD;
-        case 02:
-            return CMD::SUB;
-        case 11:
-            return CMD::PRINT;
-        case 10:
-            return CMD::PUSH;
-        case 20:
-            return CMD::POP;
-        case 255:
-            return CMD::END;
-        case 254:
-            return CMD::LABEL;*/
+        #undef DEF_CMD
     }
 }
 
 
 char ToChar( CMD cmd ) {
     switch (cmd) {
-#define DEF_CMD(name, num, argCount, code) \
+        #define DEF_CMD(name, num, argCount, code) \
         case CMD::name: \
         return num;
-#include "CommandHelper.h"
+        #include "CommandHelper.h"
 
-#undef DEF_CMD
-        /*
-        case CMD ::ADD:
-            return 01;
-        case CMD ::SUB:
-            return 02;
-        case CMD::PUSH:
-            return 10;
-        case CMD::POP:
-            return 20;
-        case CMD::END:
-            return 255;
-        case CMD::LABEL:
-            return 254;*/
+        #undef DEF_CMD
     }
 }
 
@@ -156,18 +89,12 @@ char ToChar( CMD cmd ) {
 int GetCMDArgsCount( CMD cmd )
 {
     switch( cmd ) {
-#define DEF_CMD(name, num, argCount, code) \
+        #define DEF_CMD(name, num, argCount, code) \
         case CMD::name: \
         return argCount;
-#include "CommandHelper.h"
+        #include "CommandHelper.h"
 
-#undef DEF_CMD
-       /* case CMD::PUSH:
-            return 1;
-        case CMD::POP:
-            return 1;
-        case CMD::LABEL:
-            return 1;*/
+        #undef DEF_CMD
         default:
             return 0;
     }

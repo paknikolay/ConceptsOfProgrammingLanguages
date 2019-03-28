@@ -1,0 +1,49 @@
+PRINT 3333
+IN
+CALL 5555555
+PUSHR 1
+PRINT 4444
+OUT
+STOP
+
+: 5555555
+
+POP 1
+
+PUSHR 1
+
+PUSH 3
+JA 6
+
+PUSHR 1
+
+PUSHR 1
+PUSH 1
+SUB
+CALL 5555555
+
+POP 2
+PUSHR 1
+
+
+PUSHR2
+PUSH 2
+SUB
+CALL 5555555
+PUSHR 1
+
+ADD
+POP 1
+RET
+
+
+: 6
+PUSH 1
+POP 1
+RET
+
+
+DATA
+: 3333 "Я найду тебе любое число фибоначчи, но только одно, нумерация с 1. Введи, какое число фибоначчи ты хочешь найти."
+: 4444 "Я нашел его"
+END

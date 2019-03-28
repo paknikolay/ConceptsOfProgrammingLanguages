@@ -22,16 +22,11 @@ public:
         out<< bin;
 
         out.close();
-
-
     }
-
 
     void Decompile( const char* programBinPath, const char* destPath ) {
         std::ofstream out( destPath );
-        decompile( programBinPath );
         out << decompile( programBinPath );
-
     }
 
 private:
@@ -42,8 +37,8 @@ private:
 
     std::string compile( const char* programPath, const char* destPath ) {
         std::ifstream in( programPath );
-        std::string content( (std::istreambuf_iterator<char>(in) ),
-                             (std::istreambuf_iterator<char>()    ) );
+        std::string content( ( std::istreambuf_iterator<char>(in) ),
+                             ( std::istreambuf_iterator<char>() ) );
 
         const char* program = content.data();
 
@@ -103,10 +98,19 @@ private:
                     break;
                 }
                 case 'D':
-                    cmd = CMD::DATA;
-                    bin << ToChar( cmd );
-                    iter +=  4;
-                    isData = true;
+                    switch( program[++iter] ) {
+                        case 'A':
+                            cmd = CMD::DATA;
+                            bin << ToChar(cmd);
+                            iter += 3;
+                            isData = true;
+                            break;
+                        case 'I':
+                            cmd = CMD::DIV;
+                            bin << ToChar(cmd);
+                            iter += 2;
+                            break;
+                    }
                     break;
                 case 'R':
                     cmd = CMD::RET;
@@ -117,6 +121,11 @@ private:
                     cmd = CMD::IN;
                     bin << ToChar( cmd );
                     iter +=  2;
+                    break;
+                case 'M':
+                    cmd = CMD::MUL;
+                    bin << ToChar( cmd );
+                    iter +=  3;
                     break;
                 case 'O':
                     cmd = CMD::OUT;
@@ -200,7 +209,6 @@ private:
             }
 
             increaseIp( ip, cmd );
-            //std::cout<<"cur ip: "<< ip <<"\n";
         }
 
         //поиск строковых переменных формат :name(int) "str value" 5: "hello world"

@@ -1,0 +1,35 @@
+PRINT 129 
+IN 
+CALL 28 
+PUSHR 1 
+PRINT 338 
+OUT 
+STOP 
+: 28
+POP 1 
+PUSHR 1 
+PUSH 3 
+JA 112 
+PUSHR 1 
+PUSHR 1 
+PUSH 1 
+SUB 
+CALL 28 
+POP 2 
+PUSHR 1 
+PUSHR 2 
+PUSH 2 
+SUB 
+CALL 28 
+PUSHR 1 
+ADD 
+POP 1 
+RET 
+: 112
+PUSH 1 
+POP 1 
+RET 
+DATA 
+: 129 "Я найду тебе любое число фибоначчи, но только одно, нумерация с 1. Введи, какое число фибоначчи ты хочешь найти."
+: 338 "Я нашел его"
+END 
